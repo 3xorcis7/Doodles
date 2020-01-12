@@ -1,0 +1,379 @@
+<html><head> 
+  <title>YOUR HEART SECURITY IS VERY LOW.</title> 
+ </head> 
+ <body> 
+  <center> 
+   <br> 
+   <script type="text/javascript">/*<![CDATA[*/
+
+TypingText = function(element, interval, cursor, finishedCallback) {
+
+if((typeof document.getElementById ==
+
+"undefined") || (typeof element.innerHTML == "undefined")) {
+
+this.running = true;
+
+return;
+
+}
+
+this.element = element;
+
+this.finishedCallback = (finishedCallback
+
+? finishedCallback : function() { return; });
+
+this.interval = (typeof interval == "undefined" ? 100 : interval);
+
+this.origText = this.element.innerHTML;
+
+this.unparsedOrigText = this.origText;
+
+this.cursor = (cursor ? cursor : "");
+
+this.currentText = "";
+
+this.currentChar = 0;
+
+this.element.typingText = this;
+
+if(this.element.id == "") this.element.id = "typingtext" + TypingText.currentIndex++;
+
+TypingText.all.push(this);
+
+this.running = false;
+
+this.inTag = false;
+
+this.tagBuffer = "";
+
+this.inHTMLEntity = false;
+
+this.HTMLEntityBuffer = "";
+
+}
+
+TypingText.all = new Array();
+
+TypingText.currentIndex = 0;
+
+TypingText.runAll
+
+= function() {
+
+for(var i = 0; i < TypingText.all.length; i++) TypingText.all[i].run();
+
+}
+
+TypingText.prototype.run = function() {
+
+if(this.running) return;
+
+if(typeof this.origText == "undefined") {
+
+setTimeout("document.getElementById('" + this.element.id + "').typingText.run()", this.interval);
+
+return;
+
+}
+
+if(this.currentText == "") this.element.innerHTML = "";
+
+if(this.currentChar < this.origText.length) {
+
+if(this.origText.charAt(this.currentChar) == "<" &&
+
+!this.inTag) {
+
+this.tagBuffer = "<";
+
+this.inTag = true;
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else if(this.origText.charAt(this.currentChar) == ">" &&
+
+this.inTag) {
+
+this.tagBuffer += ">";
+
+this.inTag = false;
+
+this.currentText += this.tagBuffer;
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else
+
+if(this.inTag) {
+
+this.tagBuffer += this.origText.charAt(this.currentChar);
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else
+
+if(this.origText.charAt(this.currentChar) == "&" && !this.inHTMLEntity) {
+
+this.HTMLEntityBuffer = "&";
+
+this.inHTMLEntity = true;
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else if(this.origText.charAt(this.currentChar) == ";" && this.inHTMLEntity) {
+
+this.HTMLEntityBuffer += ";";
+
+this.inHTMLEntity =
+
+false;
+
+this.currentText += this.HTMLEntityBuffer;
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else if(this.inHTMLEntity) {
+
+this.HTMLEntityBuffer +=
+
+this.origText.charAt(this.currentChar);
+
+this.currentChar++;
+
+this.run();
+
+return;
+
+} else {
+
+this.currentText += this.origText.charAt(this.currentChar);
+
+}
+
+this.element.innerHTML = this.currentText;
+
+this.element.innerHTML += (this.currentChar < this.origText.length - 1 ? (typeof this.cursor == "function" ?
+
+this.cursor(this.currentText) : this.cursor) : "");
+
+this.currentChar++;
+
+setTimeout("document.getElementById('" + this.element.id + "').typingText.run()",
+
+this.interval);
+
+} else {
+
+this.currentText = "";
+
+this.currentChar = 0;
+
+this.running = false;
+
+this.finishedCallback();
+
+}
+
+}
+
+
+/*]]>*/</script> 
+   <style>
+
+         body {
+         background  : white;
+         background-image: url();
+         background-repeat:no-repeat;
+         background-attachment: fixed;
+         background-size: 1350px;
+         font-family  : Courier new;
+         text-align  : center;
+         color    : #fff;
+         }
+         pre {
+         margin-top: 9%;
+         }
+
+
+
+.error {
+  text-align: center;
+  font-family: 'Gilda Display', serif;
+  -webkit-animation: noise-3 1s linear infinite;
+          animation: noise-3 1s linear infinite;
+  overflow: default;
+}
+
+
+.info {
+  text-align: center;
+  width: 200px;
+  height: 60px;
+  margin: auto;
+  position: absolute;
+  top: 280px;
+  bottom: 0;
+  left: 20px;
+  right: 0;
+  -webkit-animation: noise-3 1s linear infinite;
+          animation: noise-3 1s linear infinite;
+}
+
+
+.info:after {
+  content: 'OWNED';
+  font-family: OCR-A;
+  font-size: 100px;
+  text-align: center;
+  width: 800px;
+  margin: auto;
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 40px;
+  right: 0;
+  opacity: 0;
+  color: white;
+  -webkit-animation: noise-1 .2s linear infinite;
+          animation: noise-1 .2s linear infinite;
+}
+
+@-webkit-keyframes noise-1 {
+  0%, 20%, 40%, 60%, 70%, 90% {opacity: 0;}
+  10% {opacity: .1;}
+  50% {opacity: .5; left: -6px;}
+  80% {opacity: .3;}
+  100% {opacity: .6; left: 2px;}
+}
+
+@keyframes noise-1 {
+  0%, 20%, 40%, 60%, 70%, 90% {opacity: 0;}
+  10% {opacity: .1;}
+  50% {opacity: .5; left: -6px;}
+  80% {opacity: .3;}
+  100% {opacity: .6; left: 2px;}
+}
+
+@-webkit-keyframes noise-2 {
+  0%, 20%, 40%, 60%, 70%, 90% {opacity: 0;}
+  10% {opacity: .1;}
+  50% {opacity: .5; left: 6px;}
+  80% {opacity: .3;}
+  100% {opacity: .6; left: -2px;}
+}
+
+@keyframes noise-2 {
+  0%, 20%, 40%, 60%, 70%, 90% {opacity: 0;}
+  10% {opacity: .1;}
+  50% {opacity: .5; left: 6px;}
+  80% {opacity: .3;}
+  100% {opacity: .6; left: -2px;}
+}
+
+@-webkit-keyframes noise {
+  0%, 3%, 5%, 42%, 44%, 100% {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}  
+  4.3% {opacity: 1; -webkit-transform: scaleY(1.7); transform: scaleY(1.7);}
+  43% {opacity: 1; -webkit-transform: scaleX(1.5); transform: scaleX(1.5);}
+}
+
+@keyframes noise {
+  0%, 3%, 5%, 42%, 44%, 100% {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}  
+  4.3% {opacity: 1; -webkit-transform: scaleY(1.7); transform: scaleY(1.7);}
+  43% {opacity: 1; -webkit-transform: scaleX(1.5); transform: scaleX(1.5);}
+}
+
+@-webkit-keyframes noise-3 {
+  0%,3%,5%,42%,44%,100% {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}
+  4.3% {opacity: 1; -webkit-transform: scaleY(4); transform: scaleY(4);}
+  43% {opacity: 1; -webkit-transform: scaleX(10) rotate(60deg); transform: scaleX(10) rotate(60deg);}
+}
+
+@keyframes noise-3 {
+  0%,3%,5%,42%,44%,100% {opacity: 1; -webkit-transform: scaleY(1); transform: scaleY(1);}
+  4.3% {opacity: 1; -webkit-transform: scaleY(4); transform: scaleY(4);}
+  43% {opacity: 1; -webkit-transform: scaleX(10) rotate(60deg); transform: scaleX(10) rotate(60deg);}
+}
+
+.wrap {
+  top: 30%;
+  left: 25%;
+  
+  height: 200px;
+  
+  margin-top: -100px;
+  position: absolute;
+}
+code {
+  color: white;
+}
+span.blue {
+  color: #48beef;
+}
+span.comment {
+  color: #7f8c8d;
+}
+span.orange {
+  color: #f39c12;
+}
+span.green {
+  color: #33cc33;
+}
+
+.viewFull {
+  font-family:OCR-A;
+  color:orange;
+  text-decoration:;
+}
+
+  
+}
+
+ @media only screen and (min-height: 500px) {
+
+.viewFull{
+  display:none;   
+  }
+
+}
+  </style> 
+   <div class="error"> 
+    <img style="width:300px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTxP8eS9bbPR6bdyl6chQBG4W-9uF0Z-Nf9spHfoh31U_LcV2O4"> 
+    <br> 
+    <font color="black"> <font size="7">Hacked By<br> <font color="red"> <font size="6">×[]•|•₥Ɽ.฿ⱠV3.₵Ɏ฿3Ɽ•|•[]×<br> <font face="courier new"><p id="Neko08Team"> <font color="black"> <font size="5">WE ARE LEGION<br> <font color="red">WE DO NOT FORGIVE<br> <font color="black"> WE DO NOT FORGET<br> <font color="red">Just Kidding:)<font face="courier new"></font></font></font></font></font></font></p><p id="Neko08Team"><font color="black"><font size="5"><font color="red"><font color="black"><font color="red"><font face="courier new"> <font color="green"> <font size="7"> YOUR SYSTEM IS VERY LOW. I'LL BE BACK IF YOU DONT UPGRADE YOUR SECURITY.<br> <font face="courier new"></font>NO SYSTEMs ARE SAfE.</font></font></font></font></font></font></font></font></p></font></font></font></font><p id="Neko08Team"><font size="7"><font color="red"><font size="6"><font face="courier new"><font color="black"><font size="5"><font color="red"><font color="black"><font color="red"><font face="courier new"><font color="green"><font size="7"><font face="courier new"> <font color="black"> #MR.BLV3.CYB3R<br> <font color="Red"> #Mr.4NDR00T-DC<br> <font color="Red"> #Thanks Daeng soCiety Team<br> <font color="black"> #Kenya <script type="text/javascript">/*<![CDATA[*/
+
+new TypingText(document.getElementById("Neko08Team"), 90, function(i){ var ar = new Array("_", " ", "_", " "); return " " +
+
+ar[i.length % ar.length]; });
+
+
+//Type out examples:
+
+TypingText.runAll();
+
+/*]]>*/</script> </font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></font></p></font> 
+   </div> 
+  </center> 
+ 
+</body></html>
